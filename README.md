@@ -12,13 +12,24 @@ The node coordinates a TurtleBot in a multi-station logistics workflow. A task t
 ## Architecture
 
 ```text
-uArm start (/turtlebot_start) ---> navigation_node.py ---> /TURTLEBOT1/move_base_simple/goal
-                                              ^
-                         /TURTLEBOT1/move_base/result
-                                              |
-                   camera_signal <--- waypoint state ---> /TURTLEBOT1/nav_dock
-                                              ^
-                     /turtlebot/notification (uArm stage signal)
+                 KIT Logistics Automation System
+                            │
+                  automation_system.launch
+                            │
+        ┌───────────────────┼───────────────────┐
+        │                   │                   │
+  Order Generator     Robot Stations      Box Detection
+                            │                   │
+                            ▼                   │
+                    Navigation Node ◄───────────┘
+                            │
+                 ROS move_base interface
+                            │
+                            ▼
+                    TurtleBot Navigation
+                            │
+                            ▼
+                      Docking Node
 ```
 
 ## Files
